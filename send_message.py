@@ -19,7 +19,7 @@ from django.core.mail import EmailMultiAlternatives
 from scraping.models import RealEstate
 
 
-qs = RealEstate.objects.all() # filter(sent=False)
+qs = RealEstate.objects.filter(sent=False)
 html_row = '<p><small>{}:{}</small></p><br/>'
 if qs.exists():
     html_content = ''
