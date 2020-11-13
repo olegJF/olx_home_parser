@@ -11,28 +11,35 @@
     <title>Hello, olx!</title>
   </head>
   <body>
-  <h2>Fresh flats</h2>
-    <table class="table table-striped">
-  <thead>
-    <tr>
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <h2>Fresh flats</h2>
+              <table class="table table-striped">
+              <thead>
+                <tr>
 
-      <th scope="col">title</th>
-      <th scope="col">price</th>
-      <th scope="col">url</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for q in qs %}
-    <tr>
+                  <th scope="col">title</th>
+                  <th scope="col">price</th>
+                  <th scope="col">url</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for q in qs %}
+                <tr>
 
-      <td>{{ q.title }}</td>
-      <td>{{ q.price }}</td>
-      <td><a href="{{ q.url }}">more</a></td>
-    </tr>
-  {% endfor %}
+                  <td>{{ q.title }}</td>
+                  <td>{{ q.price }}</td>
+                  <td><a href="{{ q.url }}" target="_blank">more</a></td>
+                </tr>
+              {% endfor %}
 
-  </tbody>
-</table>
+              </tbody>
+            </table>
+          </div>
+      </div>
+  </div>
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 
