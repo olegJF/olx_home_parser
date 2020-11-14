@@ -21,7 +21,7 @@ from scraping.models import RealEstate
 
 qs = RealEstate.objects.filter(sent=False)
 html_row = '<p><small>{}:{}</small></p><br/>'
-if qs.exists():
+if qs.exists() and qs.count() >= 10:
     html_content = ''
     for row in qs:
         html_content += f'<a href="{row.url}" target="_blank">'
@@ -55,7 +55,7 @@ if qs.exists():
     mail.sendmail(EMAIL_USER, [EMAIL_HOST_USER], msg.as_string())
     mail.quit()
 
-today = datetime.date.today()
-ten_days_ago = datetime.date.today() - datetime.timedelta(10)
+    today = datetime.date.today()
+    ten_days_ago = datetime.date.today() - datetime.timedelta(10)
 
-RealEstate.objects.filter(sent=True, created__lte=ten_days_ago).delete()
+    RealEstate.objects.filter(sent=True, created__lte=ten_days_ago).delete()
