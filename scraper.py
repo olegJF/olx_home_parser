@@ -3,7 +3,7 @@ import requests
 import re
 from bs4 import BeautifulSoup as BS
 import codecs
-import time
+from datetime import datetime
 from random import randint
 
 
@@ -35,9 +35,11 @@ headers = [
 base_url = 'https://www.olx.ua/nedvizhimost/kvartiry-komnaty/prodazha-kvartir-komnat/kiev/?search%5Bfilter_float_number_of_rooms%3Afrom%5D=3&search%5Bfilter_float_number_of_rooms%3Ato%5D=3&search%5Bdistrict_id%5D=15'
 domain = 'https://www.olx.ua/'
 data = []
-# urls = []
+urls = []
 # urls.append(base_url)
 req = session.get(base_url, headers=headers[randint(0, 2)])
+today = datetime.today()
+today_str = datetime.strftime(today, '%d-%m-%Y')
 if req.status_code == 200:
     bsObj = BS(req.text, "html.parser")
     table = bsObj.find('table', attrs={'id': 'offers_table'})
@@ -50,9 +52,11 @@ if req.status_code == 200:
         title = title_cell.find('h3')
         href = title.a['href']
         price = "No price"
+        last_price = 0
         td_price = td.find('td', attrs={'class': 'td-price'})
         if td_price:
             price = td_price.text.replace('\n', ' ').replace('\t', ' ')
+            last_price = int(''.join(c for c in price if c.isdigit()))
         bottom_cell = td.find('td', attrs={'class': 'bottom-cell'})
         added_time = None
         f_text = bottom_cell.text.replace('\n', ' ').replace('\t', ' ')
@@ -61,18 +65,33 @@ if req.status_code == 200:
             _time = _m[0]
             hour, minute = _time.split(":")
             added_time = int(hour) * 60 + int(minute)
-
+        history_data = {today_str: price}
         data.append({'url': href,
                      'title': title.text,
                      'price': price,
-                     'added_time': added_time
+                     'added_time': added_time,
+                     'last_price': last_price,
+                     'history_data': history_data
                      })
+        urls.append(href)
+qs = RealEstate.objects.filter(url__in=urls)
+used = {q.url: q for q in qs}
 for d in data:
-    m = RealEstate(**d)
-    try:
+    if d['url'] in used:
+        instance = used[d['url']]
+        if instance.last_price != d['last_price']:
+            _data = instance.history_data
+            _data[today_str] = d['price']
+            instance.history_data = _data
+            instance.sent = False
+            instance.save()
+    else:
+        m = RealEstate(**d)
         m.save()
-    except IntegrityError:
-        pass
+    # try:
+    #     m.save()
+    # except IntegrityError:
+    #     pass
 # handle = codecs.open('data.html', "w", 'utf-8')
 # handle.write(str(data))
 # handle.close()

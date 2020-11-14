@@ -18,18 +18,21 @@
               <table class="table table-striped">
               <thead>
                 <tr>
-
                   <th scope="col">title</th>
                   <th scope="col">price</th>
+                  <th scope="col">history</th>
                   <th scope="col">url</th>
                 </tr>
               </thead>
               <tbody>
               {% for q in qs %}
                 <tr>
-
                   <td>{{ q.title }}</td>
                   <td>{{ q.price }}</td>
+                  <td>{% for d, p in q.history_data.items %}
+                        {{d}} : {{ p }} <br>
+                      {% endfor %}
+                  </td>
                   <td><a href="{{ q.url }}" target="_blank">more</a></td>
                 </tr>
               {% endfor %}
