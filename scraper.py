@@ -39,7 +39,7 @@ urls = []
 # urls.append(base_url)
 req = session.get(base_url, headers=headers[randint(0, 2)])
 today = datetime.today()
-today_str = datetime.strftime(today, '%d-%m-%Y')
+today_str = datetime.strftime(today, '%H:%M %d-%m-%Y')
 if req.status_code == 200:
     bsObj = BS(req.text, "html.parser")
     table = bsObj.find('table', attrs={'id': 'offers_table'})
@@ -82,6 +82,7 @@ for d in data:
         if instance.last_price != d['last_price']:
             _data = instance.history_data
             _data[today_str] = d['price']
+            instance.last_price = d['last_price']
             instance.history_data = _data
             instance.sent = False
             instance.save()
