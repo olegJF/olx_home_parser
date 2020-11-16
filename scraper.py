@@ -88,11 +88,10 @@ for d in data:
             instance.save()
     else:
         m = RealEstate(**d)
-        m.save()
-    # try:
-    #     m.save()
-    # except IntegrityError:
-    #     pass
+        try:
+            m.save()
+        except IntegrityError:
+            pass
 # handle = codecs.open('data.html', "w", 'utf-8')
 # handle.write(str(data))
 # handle.close()

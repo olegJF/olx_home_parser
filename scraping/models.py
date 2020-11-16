@@ -10,10 +10,13 @@ class RealEstate(models.Model):
     added_time = models.PositiveSmallIntegerField(blank=True, null=True)
     sent = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
     history_data = jsonfield.JSONField()
     last_price = models.PositiveIntegerField(verbose_name='Last price',
                                              default=0)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['updated']

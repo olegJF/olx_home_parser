@@ -7,5 +7,5 @@ from scraping.models import RealEstate
 
 def home(request):
     today = datetime.today()
-    qs = RealEstate.objects.all()  # filter(updated=today)
+    qs = RealEstate.objects.all().order_by('-updated')  # filter(updated=today)
     return render(request, 'home.html', {'qs': qs})
