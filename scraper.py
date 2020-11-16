@@ -46,8 +46,8 @@ if req.status_code == 200:
     tr_list = bsObj.find_all('tr', attrs={'class': 'wrap'})
     for tr in tr_list:
         td = tr.find('td', attrs={'class': 'offer'})
-        if 'promoted' in td['class']:
-            continue
+        # if 'promoted' in td['class']:
+        #     continue
         title_cell = td.find('td', attrs={'class': 'title-cell'})
         title = title_cell.find('h3')
         href = title.a['href']
