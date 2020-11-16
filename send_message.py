@@ -27,7 +27,8 @@ if qs.exists() and qs.count() >= 5:
         html_content += f'<a href="{row.url}" target="_blank">'
         html_content += f'{row.title}</a><br/>'
         html_content += f'<p>Price: {row.price}</p>'
-        html_content += html_row.format(*divmod(row.added_time, 60))
+        if row.added_time:
+            html_content += html_row.format(*divmod(row.added_time, 60))
         html_content += '<hr/><br/><br/>'
     qs.update(sent=True)
     subject = 'RealEstate'
