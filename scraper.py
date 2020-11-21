@@ -83,6 +83,7 @@ for d in data:
             _data = instance.history_data
             _data[today_str] = d['price']
             instance.last_price = d['last_price']
+            instance.price = d['price']
             instance.history_data = _data
             instance.sent = False
             instance.save()

@@ -14,17 +14,15 @@
                 </tr>
               </thead>
               <tbody>
-              {% for q in qs %}
                 <tr>
-                  <td>{{ q.title }}</td>
-                  <td>{{ q.price }}</td>
-                  <td>{% for d, p in q.history_data.items %}
+                  <td>{{ object.title }}</td>
+                  <td>{{ object.price }}</td>
+                  <td>{% for d, p in object.history_data.items %}
                         {{d}} : {{ p }} <br>
                       {% endfor %}
                   </td>
-                  <td><a href="{{ q.url }}" target="_blank">more</a></td>
+                  <td><a href="{{ object.url }}" target="_blank">more</a></td>
                 </tr>
-              {% endfor %}
 
               </tbody>
             </table>

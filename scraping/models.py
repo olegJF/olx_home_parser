@@ -1,5 +1,6 @@
 import jsonfield
 from django.db import models
+from django.urls import reverse
 
 
 class RealEstate(models.Model):
@@ -20,3 +21,6 @@ class RealEstate(models.Model):
 
     class Meta:
         ordering = ['updated']
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'id': self.id})
