@@ -18,6 +18,7 @@ django.setup()
 from django.core.mail import EmailMultiAlternatives
 from scraping.models import RealEstate
 
+domain = 'https://jf-olx-parser.herokuapp.com/'
 
 qs = RealEstate.objects.filter(sent=False)
 html_row = '<p><small>{}:{}</small></p><br/>'
@@ -27,7 +28,7 @@ if qs.exists() and qs.count() >= 5:
         html_content += f'<a href="{row.url}" target="_blank">'
         html_content += f'{row.title}</a><br/>'
         html_content += f'<p>Price: {row.price}</p>'
-        html_content += f'<p><a href="{ row.get_absolute_url() }">Detail</a></p>'
+        html_content += f'<p><a href="{domain}{ row.get_absolute_url() }">Detail</a></p>'
         if row.added_time:
             html_content += html_row.format(*divmod(row.added_time, 60))
         html_content += '<hr/><br/><br/>'
