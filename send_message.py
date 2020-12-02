@@ -59,6 +59,6 @@ if qs.exists() and qs.count() >= 5:
     mail.quit()
 
     today = datetime.date.today()
-    ten_days_ago = datetime.date.today() - datetime.timedelta(60)
+    ten_days_ago = datetime.date.today() - datetime.timedelta(20)
 
     RealEstate.objects.filter(sent=True, created__lte=ten_days_ago).delete()
