@@ -52,6 +52,9 @@ for room in [2, 3]:
             #     continue
             title_cell = td.find('td', attrs={'class': 'title-cell'})
             title = title_cell.find('h3')
+            title_text = title.text
+            if 'ЖК' in title_text:
+                continue
             href = title.a['href']
             price = "No price"
             last_price = 0
@@ -68,8 +71,9 @@ for room in [2, 3]:
                 hour, minute = _time.split(":")
                 added_time = int(hour) * 60 + int(minute)
             history_data = {today_str: price}
+
             data.append({'url': href,
-                         'title': title.text,
+                         'title': title_text,
                          'price': price,
                          'added_time': added_time,
                          'last_price': last_price,
