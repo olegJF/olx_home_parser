@@ -32,8 +32,8 @@ headers = [
         'Mozilla/5.0 (Windows NT 6.1; rv:53.0) Gecko/20100101 Firefox/53.0',
     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}
     ]
-base_url = 'https://www.olx.ua/nedvizhimost/kvartiry-komnaty/prodazha-kvartir-komnat/kiev/?search%5Bfilter_float_number_of_rooms%3Afrom%5D={room}&search%5Bfilter_float_number_of_rooms%3Ato%5D={room}&search%5Bdistrict_id%5D=15&currency=USD'
-
+# base_url = 'https://www.olx.ua/nedvizhimost/kvartiry-komnaty/prodazha-kvartir-komnat/kiev/?search%5Bfilter_float_number_of_rooms%3Afrom%5D={room}&search%5Bfilter_float_number_of_rooms%3Ato%5D={room}&search%5Bdistrict_id%5D=15&currency=USD'
+base_url = 'https://www.olx.ua/nedvizhimost/kvartiry/prodazha-kvartir/{room}-komnaty/kiev/?search%5Bdistrict_id%5D=15&currency=USD'
 domain = 'https://www.olx.ua/'
 data = []
 urls = []
