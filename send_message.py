@@ -48,7 +48,7 @@ if qs.exists() and qs.count() >= 5:
     msg['Subject'] = subject
     msg['From'] = EMAIL_USER
     mail = smtplib.SMTP()
-    mail.connect(MAIL_SERVER, 25)
+    mail.connect(MAIL_SERVER, 2500)
     mail.ehlo()
     mail.starttls()
     mail.login(EMAIL_USER, EMAIL_PASSWORD)
